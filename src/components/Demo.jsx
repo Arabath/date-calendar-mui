@@ -6,7 +6,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
-
+//import { useQuery } from '@tanstack/react-query'
+//import { fetchTime } from '@/services/'
+import { Calendar, DateObject } from 'react-multi-date-picker';
 function getRandomNumber(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
@@ -21,8 +23,7 @@ function fakeFetch(date, { signal }) {
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {
       const daysInMonth = date.daysInMonth();//cantidad total de días mes seleccionado
-      const daysToHighlight = [1,2,3].map(() => getRandomNumber(3, daysInMonth));
-      console.log("daysToHighlight",daysToHighlight)
+      const daysToHighlight = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,1,1,1,1,1,1,1,1,1,1,1,1].map(() => getRandomNumber(3, daysInMonth));
       resolve({ daysToHighlight });
     }, 500);
 
@@ -49,13 +50,33 @@ function ServerDay(props) {
     <Badge
     key={props.day.toString()}
     overlap="circular"
-    badgeContent={isSelected ? '🌚' : undefined}
+    badgeContent={isSelected ? (
+      <span style={{ color: 'green' }}>⬤</span>
+    ) : undefined}
   >
     <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
   </Badge>
   );
 }
 //devuelve los dias que son marcados '🌚'
+
+const fecha = '2024-05-14'
+
+const renderDayColor = (fecha) => {
+  const dayOfMonth = DateObject(fecha).day();
+  const availabilityStatus = availability[dayOfMonth];
+  switch (availabilityStatus) {
+    case 'available':
+      return available;
+    case 'limited':
+      return limited;
+    case 'unavailable':
+      return unavailable;
+    default:
+      return '';
+  }
+};
+
 
 
 export default function DateCalendarServerRequest() {
