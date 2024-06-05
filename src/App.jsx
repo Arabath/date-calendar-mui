@@ -1,13 +1,15 @@
 import './App.css'
-// import DynamicCalendar from './components/DatePicker'
+
 import Demo from './components/Demo'
-import Demo2 from './components/Demo2'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+const queryClient = new QueryClient()
 
 function App() {
-  
   return (
     < >
-      <Demo />
+      <QueryClientProvider client={queryClient}>
+        <Demo />
+      </QueryClientProvider>
     </>
   )
 }

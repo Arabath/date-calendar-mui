@@ -1,10 +1,13 @@
 import axios from 'axios';
 
-export const fetchTime = async ({ fecha }) => {
+export const fetchDates = async () => {
     try {
-        const response = await axios.get(`http://localhost:3000/timeservice/${fecha}`)
-        return response.data
-    } catch(error) {
-        throw new Error(`HTTP error! status: ${error.response.status}`)
+      const response = await axios.get('http://localhost:3000/dates/RE');
+      const data = response.data;
+      //console.log("the response body from fetchDates -->", data);
+      return data;
+    } catch (error) {
+      throw new Error(`HTTP error! status: ${error.response.status}`);
     }
-}
+  };
+  
