@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import dayjs from "dayjs";
+import React, { useState, useEffect, useRef } from "react";
 import Badge from "@mui/material/Badge";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -10,9 +9,9 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchDates } from "../services/fetchDates";
 
 export default function DateCalendarServerRequest() {
-  const requestAbortController = React.useRef(null);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [highlightedDays, setHighlightedDays] = React.useState([]);
+  const requestAbortController = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [highlightedDays, setHighlightedDays] = useState([]);
 
   const { data } = useQuery({
     queryKey: ["fetchDates"],
